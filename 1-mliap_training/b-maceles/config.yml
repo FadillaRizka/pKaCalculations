@@ -1,0 +1,29 @@
+    
+model: "MACELES" 
+num_interactions: 2 
+num_channels: 128
+max_L: 1
+correlation: 3 
+r_max: 6.0
+max_ell: 3 
+name: "mace01" 
+model_dir: "MACE_models" 
+log_dir: "MACE_models" 
+checkpoints_dir: "MACE_models" 
+results_dir: "MACE_models" 
+train_file: "../database/all-asp0_data.xyz" 
+valid_fraction: 0.20 
+test_file: "../database/all-asp0_data.xyz" 
+E0s: '{1:-1.77653310, 6:-4.24205362, 7:-7.06276471, 8:-5.95091530}'
+energy_key: "energy" 
+forces_key: "forces" 
+device: cuda 
+batch_size: 10
+valid_batch_size: 10
+max_num_epochs: 8000
+distributed: True
+enable_cueq: True
+swa: True
+start_swa: 6500
+seed: 789
+restart_latest: True

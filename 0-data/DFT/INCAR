@@ -1,0 +1,32 @@
+# General
+SYSTEM = Bulk Water
+ISTART = 0               # Start job from scratch
+ICHARG = 2               # Charge density is read from the WAVECAR or generated from atomic positions
+IALGO  = All              # Consider adjusting based on algorithm needs
+
+# XC functional
+LHFCALC = .TRUE.	 # Activate hybrid
+METAGGA = R2SCAN         # Meta-GGA functional
+ENCUT = 900              # Plane-wave cutoff energy (increase if needed)
+LASPH = .TRUE.           # Include augmentation charges
+#ADDGRID = .TRUE.        # Add a finer grid for integration
+
+# Electronic relaxation
+NELM = 70                # Maximum number of electronic SCF steps
+NELMIN = 5               # Minimum number of electronic SCF steps
+ISMEAR = 0               # Gaussian smearing (recommended for insulators and semiconductors)
+SIGMA = 0.05             # Smearing width
+EDIFF = 1E-6             # Convergence criterion for electronic self-consistency
+PREC = Accurate          # Precision level
+
+# Ionic Relaxation
+NSW    = 0               # No ionic relaxation
+IBRION = -1              # Atomic positions are not updated
+NEDOS  = 2               # Number of DOS points
+
+# Parallelization
+NCORE = 2              # Adjust for optimal parallel performance
+
+# Printing
+LWAVE = .FALSE.		# Not printing the wavefunction
+LCHARG = .FALSE.	# Not pringiting the charge

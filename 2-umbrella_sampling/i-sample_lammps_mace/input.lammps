@@ -1,0 +1,51 @@
+# === Variables ===
+variable        NSTEPS          equal 600000 #60 ps
+variable        DT              equal 0.0001 # metal unit: ps (=0.1 fs)
+variable        THERMO_FREQ     equal 100
+variable        DUMP_FREQ       equal 100
+variable        TEMP            equal 300.0
+variable        PRES            equal 1.0
+variable        TAU_T           equal 0.1 #time unit, every 100fs = 0.1ps
+variable        TAU_P           equal 0.5
+
+# === System Settings ===
+units           metal
+boundary        p p p
+atom_style      atomic
+atom_modify 	map yes
+newton        	on
+
+# === Initial Structure ===
+read_data       a0-init1.lmp
+velocity 	all set 0.0 0.0 0.0
+
+# === Neighbor List ===
+neighbor        0.5 bin
+neigh_modify    every 1 delay 0 check yes 
+
+# === Force Field Setup ===
+pair_style      symmetrix/mace
+pair_coeff      * * ../../mace01-1-6-7-8.json H C N O
+
+# === Thermostat for Real Atoms Only ===
+fix     	myplm all plumed plumedfile plumed.dat outfile plumed.log
+fix             1 all nvt temp ${TEMP} ${TEMP} ${TAU_T}
+#fix_modify      1 temp real_temp
+
+# === Timestep & Output ===
+timestep        ${DT}
+thermo          ${THERMO_FREQ}
+
+dump            1 all custom ${DUMP_FREQ} dump.lammpstrj id type x y z
+dump_modify     1 append yes sort id
+
+variable        mytemp equal temp
+fix             myat1 all ave/time 10 10 100 v_mytemp file thermo.out
+
+# === Initial Velocities ===
+#velocity        real_atom create ${TEMP} 1001
+#velocity        real_atom zero linear
+
+# === Run ===
+run             ${NSTEPS}
+write_data      restart1.lmp nocoeff 
