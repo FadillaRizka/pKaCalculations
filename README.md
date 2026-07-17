@@ -17,7 +17,7 @@ pKaCalculations/
 │   │   ├── config.yml
 │   │   ├── run_train.py
 │   │   └── MACE_models/
-│   └── b-maceles/                 # Representative files from training using MACELES
+│   └── b-maceles/                 # Representative files for training using MACELES
 │       ├── config.yml
 │       ├── run_train.py
 │       └── MACE_models/
